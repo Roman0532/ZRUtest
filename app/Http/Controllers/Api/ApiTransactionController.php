@@ -12,6 +12,5 @@ class ApiTransactionController extends Controller
 
         return $lastTransaction->isNotEmpty() ?
             response()->json($lastTransaction, 200) : response()->json([], 204);
-
     }
 }
