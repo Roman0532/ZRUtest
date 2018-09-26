@@ -16,8 +16,8 @@
  - "MYSQL_USER="
  - "MYSQL_PASSWORD="
  - "MYSQL_ROOT_PASSWORD="
- 4. docker-compose	up  --build  -d
- 5. docker	exec	zrutest_app_1	composer	install
+ 4. docker-compose up --build -d
+ 5. docker exec zrutest_app_1 composer install
  6. docker exec database mysql -u(ЛОГИН БД) -p(ПАРОЛЬ БД) -e "CREATE DATABASE IF NOT EXISTS (ИМЯ БД);"
  7. cp .env.example .env 
  8. Открыть файл env и отредактировать переменые
