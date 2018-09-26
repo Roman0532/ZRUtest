@@ -7,6 +7,8 @@ use App\Http\Requests\TransactionRequest;
 use App\Services\CsvTransactionsService;
 use App\User;
 use App\UserTransaction;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
@@ -28,27 +30,35 @@ class TransactionController extends Controller
             return redirect()->back()->with('danger', 'Сумма должна быть кратной 0.50 копеек');
         }
 
-        $amountWriteOffsWaitingTransactions = $userTransaction->where([
-            ['from_user_id', $fromUser],
-            ['status_id', 3]
-        ])->sum('amount');
+        try {
+            DB::beginTransaction();
 
-        $userBalance = $user->find($fromUser)->balance - $amountWriteOffsWaitingTransactions;
+            $amountWriteOffsWaitingTransactions = $userTransaction->where([
+                ['from_user_id', $fromUser],
+                ['status_id', 3]
+            ])->sum('amount');
 
-        if ($userBalance < $transferAmount) {
-            return redirect()->back()->with('danger', 'Недостаточно средств для перевода');
-        }
+            $userBalance = $user->find($fromUser)->balance - $amountWriteOffsWaitingTransactions;
 
-        $userTransaction->create([
-            'from_user_id' => $fromUser,
-            'to_user_id' => $toUser,
-            'dispatch_time' => $dateScheduledTransaction,
-            'amount' => $transferAmount,
-            'status_id' => 3
-        ]);
+            if ($userBalance < $transferAmount) {
+                return redirect()->back()->with('danger', 'Недостаточно средств для перевода');
+            }
 
-        return redirect()->back()->with('success', "Запись была успешно добавлена.
+            $userTransaction->create([
+                'from_user_id' => $fromUser,
+                'to_user_id' => $toUser,
+                'dispatch_time' => $dateScheduledTransaction,
+                'amount' => $transferAmount,
+                'status_id' => 3
+            ]);
+
+            DB::commit();
+            return redirect()->back()->with('success', "Запись была успешно добавлена.
          Запланированное время транзации {$dateScheduledTransaction}");
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            DB::rollBack();
+        }
     }
 
     /**
