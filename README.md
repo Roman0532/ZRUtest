@@ -51,13 +51,12 @@
  - DB_PASSWORD=
  6. docker-compose up --build -d
  7. docker exec zrutest_app_1 composer install
- 8. docker exec database mysql -u(ЛОГИН БД) -p(ПАРОЛЬ БД) -e "CREATE DATABASE IF NOT EXISTS (ИМЯ БД);"
 
  ```
  ## Выполнить следущие команды
  ```
- 9. Запустить команду make init-project
- 10. Открыть проект по адресу localhost:8080
+ 8. Запустить команду make init-project
+ 9. Открыть проект по адресу localhost:8080
  ```
  # Разворачивание проекта без докера 
 ```
