@@ -41,7 +41,6 @@ class TransactionsService
         foreach ($waitingTransactions as $transaction) {
             DB::beginTransaction();
             try {
-
                 $newUserBalance = $transaction->fromUser->balance - $transaction->amount;
                 $newUserToBalance = $transaction->toUser->balance + $transaction->amount;
 
