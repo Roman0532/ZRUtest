@@ -55,7 +55,12 @@ class TransactionTest extends TestCase
             'dispatch_time' => $nowDate
         ]);
 
-        $this->userTransaction->where([['from_user_id', 1], ['to_user_id', 2], ['amount', 0.5], ['dispatch_time', $nowDate]])->delete();
+        $this->userTransaction->where([
+            ['from_user_id', 1],
+            ['to_user_id', 2],
+            ['amount', 0.5],
+            ['dispatch_time', $nowDate]
+        ])->delete();
     }
 
     /**
