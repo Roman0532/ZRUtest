@@ -45,7 +45,7 @@
  - "MYSQL_USER="
  - "MYSQL_PASSWORD="
  - "MYSQL_ROOT_PASSWORD="
- 5. Открыть файл env и отредактировать переменые
+ 5. Открыть файл env и отредактировать переменые (Должны совпадать с docker-compose.yml)
  - DB_DATABASE=
  - DB_USERNAME=
  - DB_PASSWORD=
