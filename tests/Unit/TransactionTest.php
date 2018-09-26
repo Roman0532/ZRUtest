@@ -48,7 +48,13 @@ class TransactionTest extends TestCase
             'date' => $nowDate
         ]);
 
-        $this->assertDatabaseHas('users_transactions', ['from_user_id' => 1, 'to_user_id' => 2, 'amount' => 0.5, 'dispatch_time' => $nowDate]);
+        $this->assertDatabaseHas('users_transactions', [
+            'from_user_id' => 1,
+            'to_user_id' => 2,
+            'amount' => 0.5,
+            'dispatch_time' => $nowDate
+        ]);
+
         $this->userTransaction->where([['from_user_id', 1], ['to_user_id', 2], ['amount', 0.5], ['dispatch_time', $nowDate]])->delete();
     }
 
@@ -65,7 +71,12 @@ class TransactionTest extends TestCase
 
         $nowDate = $nowDate->format('Y-m-d H:00:00');
 
-        $this->userTransaction->create(['from_user_id' => 1, 'to_user_id' => 2, 'dispatch_time' => $nowDate, 'amount' => 0.5, 'status_id' => 3]);
+        $this->userTransaction->create([
+            'from_user_id' => 1,
+            'to_user_id' => 2,
+            'dispatch_time' => $nowDate,
+            'amount' => 0.5,
+            'status_id' => 3]);
 
         $testUserBeforeTransaction = $this->user->find(1);
         $testToUserBeforeTransaction = $this->user->find(2);

@@ -31,7 +31,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     environment:
-       - "MYSQL_DATABASE=zru_test"
+       - "MYSQL_DATABASE=test"
        - "MYSQL_USER=root"
        - "MYSQL_PASSWORD=123"
        - "MYSQL_ROOT_PASSWORD=123"
