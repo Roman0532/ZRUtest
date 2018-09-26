@@ -1,6 +1,6 @@
 FROM php:7.1-fpm
 
-COPY composer.lock composer.json /var/www/
+COPY composer.json /var/www/
 
 RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client \
 && docker-php-ext-install mcrypt pdo_mysql
