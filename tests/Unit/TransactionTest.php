@@ -7,13 +7,14 @@ use App\User;
 use App\UserTransaction;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class TransactionTest extends TestCase
 {
     use withoutMiddleware;
+    use DatabaseTransactions;
 
     private $client;
     private $user;
@@ -54,13 +55,6 @@ class TransactionTest extends TestCase
             'amount' => 0.5,
             'dispatch_time' => $nowDate
         ]);
-
-        $this->userTransaction->where([
-            ['from_user_id', 1],
-            ['to_user_id', 2],
-            ['amount', 0.5],
-            ['dispatch_time', $nowDate]
-        ])->delete();
     }
 
     /**
@@ -70,8 +64,6 @@ class TransactionTest extends TestCase
      */
     public function testBeginTransaction()
     {
-        DB::beginTransaction();
-
         $nowDate = Carbon::now();
 
         $nowDate = $nowDate->format('Y-m-d H:00:00');
@@ -93,11 +85,6 @@ class TransactionTest extends TestCase
 
         $this->assertTrue($testUserBeforeTransaction->balance - 0.50 == $testUserAfterTransaction->balance);
         $this->assertTrue($testToUserBeforeTransaction->balance + 0.50 == $testToUserAfterTransaction->balance);
-
-        $testUserAfterTransaction->update(['balance' => $testUserAfterTransaction->balance + 0.50]);
-        $testToUserAfterTransaction->update(['balance' => $testToUserAfterTransaction->balance - 0.50]);
-
-        DB::rollBack();
     }
 
     /**
