@@ -82,4 +82,4 @@
  
  ## Для запуска тестов введите команду 
  
- ``` docker exec zrutest_app_1 vendor/bin/phpunut ```
+ ``` docker exec zrutest_app_1 vendor/bin/phpunit ```
