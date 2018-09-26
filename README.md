@@ -56,13 +56,8 @@
  ```
  ## Выполнить следущие команды
  ```
- 9.  docker exec zrutest_app_1 php artisan migrate
- 10. docker exec zrutest_app_1 php artisan db:seed
- 11. docker exec zrutest_app_1 php artisan config:cache
- 12. docker exec zrutest_app_1 php artisan config:clear
- 13. docker exec zrutest_app_1 php artisan key:generate
- 14. docker exec zrutest_app_1 chmod 777 -R storage/
- 15. Открыть проект по адресу localhost:8080
+ 9. Запустить команду make init-project
+ 10. Открыть проект по адресу localhost:8080
  ```
  # Разворачивание проекта без докера 
 ```
@@ -74,8 +69,9 @@
  - DB_USERNAME=
  - DB_PASSWORD=
  - DB_PORT:3306
- 5.composer install
- 
+ 5. composer install
+ 6. php artisan serve
+
  ```
  ## Для запуска отложеных платежей необходимо выполнить следующие действия
  ```
