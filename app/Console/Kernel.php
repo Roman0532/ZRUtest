@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('transactions:begin')->everyMinute();
+        $schedule->command('transactions:begin')->hourly();
         $schedule->command('sms:send')->daily();
     }
 
